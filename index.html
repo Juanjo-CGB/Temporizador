@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temporizador</title>
     <link rel="stylesheet" href="style.css">
+    <script defer src="main.js"></script>
 </head>
 <body>
     <header id="contador">
@@ -17,7 +18,17 @@
         <p class="header__texto-horas">horas</p>
         <p class="header__texto-minutos">minutos</p>
     </header> 
-    <main></main>
+    <main>
+        <section class="calendario">
+            <h1>Temporizador</h1>
+            <div class="calendario__container">
+                <label for="calendario" class="calendario__label" >Seleccione el día final: </label>
+                <input type="date" class="calendario__input" id="calendario" name="trip-start" value="yyyy-MM-dd">
+            </div>
+            <p class="calendario__error"></p>
+        </section>
+        
+    </main>
     <footer><p>&copy; CGB Informática</p></footer> 
 </body>
 </html>

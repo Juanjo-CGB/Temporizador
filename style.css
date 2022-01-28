@@ -1,0 +1,85 @@
+:root{
+    --primary-color: #0970a0;    
+    --background-primary-color: #0970a0;    
+    --color-white: #fff;
+    --color-error: #eb4040;
+    --border-color: #777;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0
+}
+html, body{
+    height: 100%;
+    width: 100%
+}
+body{
+    display: flex;
+    flex-direction: column;
+    font-family: 'Raleway', sans-serif;
+    height: 100vh;
+    min-width: 20rem;    
+    width: 100%
+}
+p{
+    color: var(--color-white);
+    font-weight: 700
+}
+header{
+    align-items: center;
+    background-color: var(--background-primary-color); 
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    grid-template-rows: repeat(2, auto);
+    grid-template-areas: "dias separador1 horas separador2 minutos"
+                        "texto-dias . texto-horas . texto-minutos";
+    justify-content: center;
+    padding: 5rem;
+    text-align: center;
+    width: 100%
+}
+.big-size{
+    font-size: clamp(3rem, 20vw, 10rem)
+}
+.header__dias{
+    grid-area: dias
+}
+.header__horas{
+    grid-area: horas
+}
+.header__minutos{
+    grid-area: minutos
+}
+.header__separador--uno{
+    grid-area: separador1
+}
+.header__separador--dos{
+    grid-area: separador2
+}
+.header__texto-dias,
+.header__texto-horas,
+.header__texto-minutos{
+    font-size: clamp(.25rem, 5vw, 1.75rem);
+    text-transform: uppercase
+}
+.header__texto-dias{
+    grid-area: texto-dias
+}
+.header__texto-horas{
+    grid-area: texto-horas
+}
+.header__texto-minutos{
+    grid-area: texto-minutos
+}
+main{
+    flex-grow: 1
+}
+footer{
+    background-color: var(--background-primary-color);            
+    display: flex;
+    font-size: 1rem; 
+    height: max-content;
+    justify-content: center;
+    padding: 1.5rem 0
+}

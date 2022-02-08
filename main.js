@@ -6,9 +6,18 @@
  */
 
 /**
-  * Iniciamos la cuenta atrás
-  * @param  {dia establecido como final, texto mostrado al finalizar la cuenta atrás}
-  * @return  {}
+ * @typedef {Object} Tiempo
+ * @property {number} total Tiempo total en ms
+ * @property {number} dias Número de días
+ * @property {number} horas Número de horas
+ * @property {number} minutos Número de minutos
+ */
+
+/**
+  * Inicia la cuenta atrás
+  * @param {Date} diaFinal Día establecido como final
+  * @param {string} textoFinal Texto mostrado al finalizar la cuenta atrás
+  * @returns {void}
   */
 function iniciarReloj(diaFinal, textoFinal) {                   
     function actualizarReloj() {
@@ -26,14 +35,17 @@ function iniciarReloj(diaFinal, textoFinal) {
 }
 /**
   * Obtiene el tiempo restante entre hoy y la fecha final
-  * @param  {dia establecido como final}
-  * @return  {}
+  * @param  {Date} diaFinal Día establecido como final
+  * @returns  {Tiempo} Tiempo restante del temporizador en diferentes unidades
   */
 function obtenerTiempoRestante(diaFinal) {
-    const hoy = new Date();
+    /** @type {number} */
     const total = Date.parse(diaFinal) - Date.parse(new Date());
+    /** @type {number} */
     const dias = Math.floor(total / 86400000);
+    /** @type {number} */
     const horas = Math.floor((total % 86400000) / 3600000);
+    /** @type {number} */
     const minutos = Math.round(((total % 86400000) % 3600000) / 60000);           
     return {
         total,
@@ -55,7 +67,9 @@ inputFecha.addEventListener('change', function() {
     if(Date.parse(inputFecha.value) > Date.parse(new Date())){
         inputFecha.setAttribute("disabled", "");
         error.innerHTML = "";
+        /** @type {Array} */
         const arrFecha = inputFecha.value.split('-');
+        /** @type {Date} */
         const diaFinal = new Date(Number(arrFecha[0]),Number(arrFecha[1]) - 1,Number(arrFecha[2]),0,0,0);
         //const diaFinal = new Date("March 18, 2022 00:00:00");
         iniciarReloj(diaFinal, textoFinCuenta);

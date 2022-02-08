@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        :root{
+            --primary-color: #0970a0;    
+            --background-primary-color: #0970a0;    
+            --color-white: #fff;
+            --color-error: #eb4040;
+            --border-color: #777;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+        html, body{
+            height: 100%;
+            width: 100%
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            font-family: 'Raleway', sans-serif;
+            height: 100vh;
+            min-width: 20rem;    
+            width: 100%
+        }
+        p{
+            font-weight: 700
+        }
+        header{
+            align-items: center;
+            background-color: var(--background-primary-color);     
+            font-size: 8rem;
+            color: var(--color-white);   
+            display: flex;
+            justify-content: center;
+            padding: 5rem;
+            width: 100%
+        }
+        main{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            flex-grow: 1
+        }
+        #total-segundos{
+            padding: .5rem;
+            height: max-content
+        }
+        .input-segundos{
+            display: flex;
+            align-items: center;
+        }
+        .contador{
+            border-radius: 3px;
+            border: 1px solid var(--border-color);
+            padding: .45rem .625rem;
+            margin-left: .5rem;
+            color: var(--primary-color)
+        }
+        .contador:hover{
+            background-color: var(--background-primary-color);
+            color: var(--color-white)
+        }
+        .error{
+            color: var(--color-error);
+            font-size: 1rem
+        }
+        footer{
+            background-color: var(--background-primary-color);
+            color: var(--color-white);
+            display: flex;
+            height: max-content;
+            justify-content: center;
+            padding: 1.5rem 0
+        }
+    </style>
+</head>
+<body>
+    <header id="contador">
+        <div><p class="horas">00</p></div>
+        <div><p class="separator">:</p></div>
+        <div><p class="minutos">00</p></div>
+        <div><p class="separator">:</p></div>
+        <div><p class="segundos">00</p></div>
+    </header> 
+    <main>
+        <div class="input-segundos"> 
+            <input aria-label="Introducir segundos" pattern="^[0-9,$]*$" title="Introducir segundos" type="text" name="total-segundos" autocomplete="off" id="total-segundos" placeholder="Introduce total segundos"/>
+            <a aria-label="Iniciar contador" title="Iniciar contador" href="#" class="iniciar-contador contador"><i class="fas fa-stopwatch"></i></a>          
+            <a aria-label="Resetear contador" title="Resetear contador" href="#" class="resetear-contador contador"><i class="fas fa-redo"></i></a>          
+        </div>
+        <p class="error"></p>
+    </main>
+    <footer>&copy; CGB Informática</footer>  
+    <script>
+        // Funciones
+        function iniciarReloj(tiempoFinal, textoFinal) {                   
+            function actualizarReloj() {
+                const t = obtenerTiempoRestante(tiempoFinal);            
+                horasTexto.innerHTML = ('0' + t.horas).slice(-2);
+                minutosTexto.innerHTML = ('0' + t.minutos).slice(-2);
+                segundosTexto.innerHTML = ('0' + t.segundos).slice(-2);            
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    reloj.innerHTML = textoFinal;
+                }
+            }            
+            actualizarReloj();
+            const timeinterval = setInterval(actualizarReloj, 1000);
+        }
+        function obtenerTiempoRestante(tiempoFinal) {
+            const total = Date.parse(tiempoFinal) - Date.parse(new Date());
+            const segundos = Math.floor((total / 1000) % 60);
+            const minutos = Math.floor((total / 1000 / 60) % 60);            
+            const horas = Math.floor((total / 1000 / 60 / 60) % 60);            
+            return {
+                total,
+                horas,      
+                minutos,
+                segundos
+            };
+        }
+        // Iniciamos la cuenta atrás      
+        const reloj = document.querySelector('#contador');
+        const horasTexto = document.querySelector('.horas');
+        const minutosTexto = document.querySelector('.minutos');
+        const segundosTexto = document.querySelector('.segundos'); 
+        const resetearContador = document.querySelector('.resetear-contador');
+        const iniciarContador = document.querySelector('.iniciar-contador');
+        const totalSegundos = document.querySelector('#total-segundos');
+        const error = document.querySelector('.error');
+        let textoFinCuenta = "<div><p>FIN</p></div>";
+        //let segundosTiempoFinal = 12000;
+        //const cuentaAtras = new Date(Date.parse(new Date()) + 1 * Number(segundosTiempoFinal) * 1000);        
+        //iniciarReloj(cuentaAtras, textoFinCuenta);
+
+        iniciarContador.addEventListener("click", function(){
+            if(isNaN(totalSegundos.value) || totalSegundos.value === ''){
+                error.innerHTML = "¡Error! Inserte un número de segundos válido.";
+            }else{
+                totalSegundos.setAttribute("disabled", "");
+                let segundosTiempoFinal = totalSegundos.value
+                const cuentaAtras = new Date(Date.parse(new Date()) + 1 * Number(segundosTiempoFinal) * 1000);        
+                iniciarReloj(cuentaAtras, textoFinCuenta);                
+            }            
+        });
+        resetearContador.addEventListener("click", function(){
+            location.reload();           
+        });
+    </script> 
+</body>
+</html>

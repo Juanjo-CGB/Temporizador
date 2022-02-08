@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        :root{
+            --primary-color: #0970a0;    
+            --background-primary-color: #0970a0;    
+            --color-white: #fff;
+            --color-error: #eb4040;
+            --color-black: #000;
+            --border-color: #777;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+        html, body{
+            height: 100%;
+            width: 100%
+        }
+        body{
+            display: flex;
+            flex-direction: column;
+            font-family: 'Raleway', sans-serif;
+            height: 100vh;
+            min-width: 20rem;    
+            width: 100%
+        }
+        p{
+            color: var(--color-white);
+            font-weight: 700
+        }
+        header{
+            align-items: center;
+            background-color: var(--background-primary-color); 
+            display: grid;
+            grid-template-columns: repeat(5, max-content);
+            grid-template-rows: repeat(4, auto);
+            grid-template-areas: "texto-titulo texto-titulo texto-titulo texto-titulo texto-titulo"
+                                "dias separador1 horas separador2 minutos"
+                                "texto-dias . texto-horas . texto-minutos"
+                                "texto-footer texto-footer texto-footer texto-footer texto-footer";
+            justify-content: center;
+            padding: 5rem;
+            text-align: center;
+            width: 100%
+        }
+        .big-size{
+            font-size: clamp(3rem, 20vw, 10rem)
+        }
+        .header__dias{
+            grid-area: dias
+        }
+        .header__horas{
+            grid-area: horas
+        }
+        .header__minutos{
+            grid-area: minutos
+        }
+        .header__separador--uno{
+            grid-area: separador1
+        }
+        .header__separador--dos{
+            grid-area: separador2
+        }
+        .header__texto-dias,
+        .header__texto-horas,
+        .header__texto-minutos,
+        .header__texto-titulo,
+        .header__texto-footer{
+            font-size: clamp(.25rem, 5vw, 1.75rem);
+            text-transform: uppercase
+        }
+        .header__texto-dias{
+            grid-area: texto-dias
+        }
+        .header__texto-horas{
+            grid-area: texto-horas
+        }
+        .header__texto-minutos{
+            grid-area: texto-minutos
+        }
+        .header__texto-titulo{
+            grid-area: texto-titulo
+        }
+        .header__texto-footer{
+            grid-area: texto-footer;
+            padding-top: 3rem
+        }
+        @media screen and (max-width: 992px){
+            .header__texto-footer{
+                font-size: 1.5rem
+            }
+        }
+        @media screen and (max-width: 768px){
+            .header__texto-footer{
+                font-size: 1rem
+            }
+        }
+        @media screen and (max-width: 596px){
+            .header__texto-footer{
+                font-size: .5rem
+            }
+        }
+        main{
+            flex-grow: 1
+        }
+        footer{
+            background-color: var(--background-primary-color);            
+            display: flex;
+            font-size: 1rem; 
+            height: max-content;
+            justify-content: center;
+            padding: 1.5rem 0
+        }
+        .texto-resaltado{
+            color: var(--color-black)
+        }
+    </style>
+</head>
+<body>
+    <header id="contador">
+        <p class="header__texto-titulo">Quedan:</p>
+        <p class="header__dias big-size">00</p>
+        <p class="header__separator header__separator--uno big-size">:</p>
+        <p class="header__horas big-size">00</p>
+        <p class="header__separator header__separator--dos big-size">:</p>
+        <p class="header__minutos big-size">00</p>
+        <p class="header__texto-dias">dias</p>
+        <p class="header__texto-horas">horas</p>
+        <p class="header__texto-minutos">minutos</p>
+        <p class="header__texto-footer">para el inicio del periodo de <span class="texto-resaltado">presentación de solicitudes</span></p>
+    </header> 
+    <main></main>
+    <footer><p>&copy; CGB Informática</p></footer>  
+    <script>
+        // Funciones
+        function iniciarReloj(diaFinal, textoFinal) {                   
+            function actualizarReloj() {
+                const t = obtenerTiempoRestante(diaFinal);            
+                diasTexto.innerHTML = ('0' + t.dias).slice(-2);
+                horasTexto.innerHTML = ('0' + t.horas).slice(-2);
+                minutosTexto.innerHTML = ('0' + t.minutos).slice(-2);            
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    reloj.innerHTML = textoFinal;
+                }
+            }            
+            actualizarReloj();
+            const timeinterval = setInterval(actualizarReloj, 1000);
+        }
+        function obtenerTiempoRestante(diaFinal) {
+            const hoy = new Date();
+            const total = Date.parse(diaFinal) - Date.parse(new Date());
+            const dias = Math.floor(total / 86400000);
+            const horas = Math.floor((total % 86400000) / 3600000);
+            const minutos = Math.round(((total % 86400000) % 3600000) / 60000);           
+            return {
+                total,
+                dias,
+                horas,      
+                minutos
+            };
+        }
+        // Iniciamos la cuenta atrás      
+        const reloj = document.querySelector('#contador');
+        const diasTexto = document.querySelector('.header__dias');
+        const horasTexto = document.querySelector('.header__horas');
+        const minutosTexto = document.querySelector('.header__minutos'); 
+
+        let textoFinCuenta = "<div><p>FIN</p></div>";
+        const diaFinal = new Date("March 18, 2022 00:00:00");
+        iniciarReloj(diaFinal, textoFinCuenta);
+    </script> 
+</body>
+</html>

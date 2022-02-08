@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <style>
+        :root{
+            --primary-color: #96f7ca;    
+            --secondary-color: #ef8c37;
+            --terciary-color: #6370d8;    
+            --color-white: #fff;
+            --color-error: #eb4040;
+            --color-black: #000;
+            --border-color: #777;
+        }
+        *{
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+        html, body{
+            width: 100%
+        }
+        body{
+            display: flex;
+            background-image:url('admision.jpg');
+            background-position: top;
+            background-repeat: no-repeat;
+            background-size: cover;
+            flex-direction: column;
+            font-family: 'Open Sans', sans-serif;
+            height: max-content;
+            text-align: center;
+        }
+        p{
+            font-weight: 700
+        }
+        #contador{
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(to right,  rgba(255,255,255,0.01) 0%,var(--color-white) 40%,var(--color-white) 60%,rgba(255,255,255,0.01) 100%);;
+            width: 100%            
+        }
+        .contador__container{
+            align-items: flex-start;
+            background-color: var(--color-white);
+            border-radius: 20px;
+            color: var(--terciary-color);
+            display: grid;
+            grid-template-columns: repeat(5, max-content);
+            grid-template-rows: max-content 3em;
+            grid-template-areas: "dias separador1 horas separador2 minutos"
+                                "texto-dias . texto-horas . texto-minutos";
+            justify-content: center;
+            padding: 0 3rem;
+            text-align: center;
+            width: max-content;
+        }
+        @media screen and (max-width: 477px){
+            .contador__container{
+                grid-template-rows: max-content 2em;
+            }
+        }
+        .big-size{            
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(2.5rem, 15vw, 7.5rem)
+        }
+        .contador__dias{
+            grid-area: dias
+        }
+        .contador__horas{
+            grid-area: horas
+        }
+        .contador__minutos{
+            grid-area: minutos
+        }
+        .contador__separador--uno{
+            grid-area: separador1
+        }
+        .contador__separador--dos{
+            grid-area: separador2
+        }
+        .contador__texto-dias,
+        .contador__texto-horas,
+        .contador__texto-minutos{
+            font-size: clamp(.25rem, 3vw, 1rem);
+            text-transform: uppercase
+        }
+        .contador__header p,
+        .contador__footer p{
+            font-size: clamp(.25rem, 5vw, 1.75rem);
+            text-transform: uppercase
+        }
+        .contador__texto-dias{
+            grid-area: texto-dias
+        }
+        .contador__texto-horas{
+            grid-area: texto-horas
+        }
+        .contador__texto-minutos{
+            grid-area: texto-minutos
+        }
+        .contador__footer,
+        .contador__header{
+            color: var(--primary-color);
+            padding: 3rem
+        }
+        .texto-resaltado{
+            color: var(--secondary-color)
+        }
+    </style>
+</head>
+<body>
+    <section class="contador__header">
+        <p>Quedan:</p>
+    </section>
+    <section id="contador">
+        <div class="contador__container">
+            <p class="contador__dias big-size">00</p>
+            <p class="contador__separator header__separator--uno big-size">:</p>
+            <p class="contador__horas big-size">00</p>
+            <p class="contador__separator header__separator--dos big-size">:</p>
+            <p class="contador__minutos big-size">00</p>
+            <p class="contador__texto-dias">días</p>
+            <p class="contador__texto-horas">horas</p>
+            <p class="contador__texto-minutos">minutos</p>
+        </div>
+    </section> 
+    <section class="contador__footer">
+        <p>para el inicio del periodo de <span class="texto-resaltado">presentación de solicitudes</span></p>
+    </section>
+    <script>
+        // Funciones
+        function iniciarReloj(diaFinal, textoFinal) {                   
+            function actualizarReloj() {
+                const t = obtenerTiempoRestante(diaFinal);            
+                diasTexto.innerHTML = ('0' + t.dias).slice(-2);
+                horasTexto.innerHTML = ('0' + t.horas).slice(-2);
+                minutosTexto.innerHTML = ('0' + t.minutos).slice(-2);            
+                if (t.total <= 0) {
+                    clearInterval(timeinterval);
+                    reloj.innerHTML = textoFinal;
+                }
+            }            
+            actualizarReloj();
+            const timeinterval = setInterval(actualizarReloj, 1000);
+        }
+        function obtenerTiempoRestante(diaFinal) {
+            const hoy = new Date();
+            const total = Date.parse(diaFinal) - Date.parse(new Date());
+            const dias = Math.floor(total / 86400000);
+            const horas = Math.floor((total % 86400000) / 3600000);
+            const minutos = Math.round(((total % 86400000) % 3600000) / 60000);           
+            return {
+                total,
+                dias,
+                horas,      
+                minutos
+            };
+        }
+        // Iniciamos la cuenta atrás      
+        const reloj = document.querySelector('contador__container');
+        const diasTexto = document.querySelector('.contador__dias');
+        const horasTexto = document.querySelector('.contador__horas');
+        const minutosTexto = document.querySelector('.contador__minutos'); 
+
+        let textoFinCuenta = "<div><p>FIN</p></div>";
+        const diaFinal = new Date("March 18, 2022 00:00:00");
+        iniciarReloj(diaFinal, textoFinCuenta);
+    </script> 
+</body>
+</html>

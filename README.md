@@ -10,3 +10,8 @@ Temporizador de cuenta regresiva fácil de usar en cualquier proyecto o sitio we
 
 **CSS:** Estilos
 
+## Documentación
+
+[Documentación](https://juanjo-cgb.github.io/temporizador/)
+
+

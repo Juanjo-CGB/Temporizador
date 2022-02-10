@@ -6,6 +6,7 @@
  */
 
 /**
+ * Tipo de dato Tiempo
  * @typedef {Object} Tiempo
  * @property {number} total Tiempo total en ms
  * @property {number} dias Número de días
@@ -60,18 +61,27 @@ const diasTexto = document.querySelector('.header__dias');
 const horasTexto = document.querySelector('.header__horas');
 const minutosTexto = document.querySelector('.header__minutos'); 
 const inputFecha = document.querySelector('.calendario__input'); 
-const error = document.querySelector('.calendario__error'); 
+const error = document.querySelector('.calendario__error');
+// Variables documentación
+/**
+  * Separa la fecha introducida en un array de números que contiene Año-Mes-Dia
+  * @type {Array<Number>}
+  */
+let arrFecha = [];
+/**
+  * Día desde el que se inicia la cuenta atrás del temporizador
+  * @type {Date}
+  */
+let diaFinal;
 
 let textoFinCuenta = "<div><p>FIN</p></div>";
 inputFecha.addEventListener('change', function() {
     if(Date.parse(inputFecha.value) > Date.parse(new Date())){
         inputFecha.setAttribute("disabled", "");
         error.innerHTML = "";
-        /** @type {Array} */
-        const arrFecha = inputFecha.value.split('-');
-        /** @type {Date} */
-        const diaFinal = new Date(Number(arrFecha[0]),Number(arrFecha[1]) - 1,Number(arrFecha[2]),0,0,0);
-        //const diaFinal = new Date("March 18, 2022 00:00:00");
+        arrFecha = inputFecha.value.split('-');
+        diaFinal = new Date(Number(arrFecha[0]),Number(arrFecha[1]) - 1,Number(arrFecha[2]),0,0,0);
+        //diaFinal = new Date("March 18, 2022 00:00:00");
         iniciarReloj(diaFinal, textoFinCuenta);
     }else{        
         error.innerHTML = "¡Error! Seleccione un día superior al actual.";

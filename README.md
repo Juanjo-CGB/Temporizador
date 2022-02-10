@@ -1,5 +1,4 @@
-
-# Javascript-Temporizador
+# Temporizador
 
 Temporizador de cuenta regresiva fácil de usar en cualquier proyecto o sitio web.
 
@@ -10,8 +9,4 @@ Temporizador de cuenta regresiva fácil de usar en cualquier proyecto o sitio we
 **HTML:** Estructura
 
 **CSS:** Estilos
-
-## Autor
-
-- [@juanjoCGB](https://github.com/Juanjo-CGB)
 

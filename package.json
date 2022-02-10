@@ -1,0 +1,25 @@
+{
+  "name": "temporizador",
+  "version": "1.0.0",
+  "description": "Temporizador de cuenta regresiva fácil de usar en cualquier proyecto o sitio web.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juanjo-CGB/temporizador.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Juanjo-CGB/temporizador/issues"
+  },
+  "homepage": "https://github.com/Juanjo-CGB/temporizador#readme",
+  "dependencies": {
+    "foodoc": "^0.0.9",
+    "jsdoc": "^3.6.10",
+    "minami": "^1.2.3"
+  }
+}

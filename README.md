@@ -12,6 +12,6 @@ Temporizador de cuenta regresiva fácil de usar en cualquier proyecto o sitio we
 
 ## Documentación
 
-[Documentación](https://juanjo-cgb.github.io/temporizador/)
+[Documentación](https://juanjo-cgb.github.io/Temporizador/)
 
 

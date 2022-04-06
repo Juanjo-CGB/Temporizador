@@ -1,6 +1,6 @@
 :root{
-    --primary-color: #0970a0;    
-    --background-primary-color: #0970a0;    
+    --primary-color: #3ab5a4;    
+    --background-primary-color: #222e33;    
     --color-white: #fff;
     --color-error: #eb4040;
     --border-color: #777;
@@ -103,4 +103,12 @@ footer{
     height: max-content;
     justify-content: center;
     padding: 1.5rem 0
+}
+.footer__copy {
+    color: var(--color-white);
+    font-weight: 500;
+}
+.footer__copy-jjasdev {
+    color: var(--primary-color);
+    font-weight: 500;
 }

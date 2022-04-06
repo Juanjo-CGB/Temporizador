@@ -15,6 +15,15 @@
  */
 
 /**
+  * Establece el año en el footer
+  * @returns {void}
+  */
+ function establecerYear(){ 
+  const today = new Date();
+  const nodoYear = document.querySelector(".footer__copy-year"); 
+  nodoYear.innerHTML = today.getFullYear();
+}
+/**
   * Inicia la cuenta atrás
   * @param {Date} diaFinal Día establecido como final
   * @param {string} textoFinal Texto mostrado al finalizar la cuenta atrás
@@ -55,6 +64,8 @@ function obtenerTiempoRestante(diaFinal) {
         minutos
     };
 }
+//Pintamos año
+establecerYear();
 // Iniciamos la cuenta atrás      
 const reloj = document.querySelector('#contador');
 const diasTexto = document.querySelector('.header__dias');
